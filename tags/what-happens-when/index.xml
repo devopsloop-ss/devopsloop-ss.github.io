@@ -7,13 +7,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 18 Feb 2024 21:00:33 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 18 Feb 2024 21:32:28 +0530</lastBuildDate>
     <atom:link href="https://devopsloop-ss.github.io/tags/what-happens-when/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What happens when: I create a Kubernetes Pod</title>
-      <link>https://devopsloop-ss.github.io/blog/what-happens-when-i-create-a-kubernetes-pod/</link>
+      <link>https://devopsloop-ss.github.io/posts/2024/02/what-happens-when-i-create-a-kubernetes-pod/</link>
       <pubDate>Sun, 18 Feb 2024 17:10:53 +0530</pubDate>
-      <guid>https://devopsloop-ss.github.io/blog/what-happens-when-i-create-a-kubernetes-pod/</guid>
+      <guid>https://devopsloop-ss.github.io/posts/2024/02/what-happens-when-i-create-a-kubernetes-pod/</guid>
       <description>This blogpost takes a deepdive into the series of events that transpire, when a Kubernetes pod is created&#xA;Have you ever wondered what happens behind the scenes when you create a pod in Kubernetes? This blog post aims to unveil the intricate dance of events that unfolds from the moment you issue a command like kubectl run to the point where your pod is up and running.&#xA;We&amp;rsquo;ll break down the process into bite-sized steps, exploring various elements involved, including:</description>
     </item>
   </channel>

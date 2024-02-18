@@ -1,0 +1,180 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on This is DevOpsloop</title>
+        <link>https://devopsloop-ss.github.io/posts/</link>
+        <description>Recent content in Posts on This is DevOpsloop</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sun, 18 Feb 2024 17:10:53 +0530</lastBuildDate>
+        <atom:link href="https://devopsloop-ss.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>What happens when: I create a Kubernetes Pod</title>
+            <link>https://devopsloop-ss.github.io/posts/2024/02/what-happens-when-i-create-a-kubernetes-pod/</link>
+            <pubDate>Sun, 18 Feb 2024 17:10:53 +0530</pubDate>
+            
+            <guid>https://devopsloop-ss.github.io/posts/2024/02/what-happens-when-i-create-a-kubernetes-pod/</guid>
+            <description>This blogpost takes a deepdive into the series of events that transpire, when a Kubernetes pod is created
+Have you ever wondered what happens behind the scenes when you create a pod in Kubernetes? This blog post aims to unveil the intricate dance of events that unfolds from the moment you issue a command like kubectl run to the point where your pod is up and running.
+We&amp;rsquo;ll break down the process into bite-sized steps, exploring various elements involved, including:</description>
+            <content type="html"><![CDATA[<p><em>This blogpost takes a deepdive into the series of events that transpire, when a Kubernetes pod is created</em></p>
+<p>Have you ever wondered what happens behind the scenes when you create a pod in Kubernetes?
+This blog post aims to unveil the intricate dance of events that unfolds from the moment
+you issue a command like kubectl run to the point where your pod is up and running.</p>
+<p>We&rsquo;ll break down the process into bite-sized steps, exploring various elements involved, including:</p>
+<ul>
+<li><strong>Client-side interactions:</strong> How your command interacts with the Kubernetes API server.</li>
+<li><strong>Authentication and authorization:</strong> Ensuring you have the necessary permissions to create pods.</li>
+<li><strong>API communication:</strong> The exchange of information between different components.</li>
+<li><strong>Worker node activities:</strong> Downloading images, launching containers, and managing resources.</li>
+</ul>
+<p>A pre requisite to this post is knowing about the distributed architecture of Kubernetes.</p>
+<h2 id="why-do-i-need-to-know-this">Why do I need to know this?</h2>
+<p>Understanding this process is crucial for both DevOps engineers and developers working with containerized applications in Kubernetes. Here&rsquo;s why:</p>
+<h3 id="for-devops-engineers">For DevOps Engineers:</h3>
+<ul>
+<li><strong>Troubleshooting and debugging:</strong> A deeper understanding of pod creation enables efficient troubleshooting of deployment issues. Knowing the various steps involved helps pinpoint potential bottlenecks or errors that might occur during the process.</li>
+<li><strong>Resource optimization:</strong> By understanding how pods are created and managed, DevOps engineers can make informed decisions about resource allocation, ensuring efficient utilization and cost optimization.</li>
+<li><strong>Security considerations:</strong> Familiarity with the authentication and authorization aspects of pod creation empowers DevOps engineers to implement robust security measures and manage access controls effectively.</li>
+</ul>
+<h3 id="for-developers">For Developers:</h3>
+<ul>
+<li><strong>Improved collaboration:</strong> When developers understand the underlying infrastructure, they can collaborate more effectively with DevOps teams, leading to smoother deployments and faster development cycles.</li>
+<li><strong>Debugging deployments:</strong> Knowing the steps involved in pod creation allows developers to better debug issues related to their containerized applications and pinpoint problems within their code or configuration.</li>
+<li><strong>Informed infrastructure decisions:</strong> Understanding the pod creation process empowers developers to make informed decisions about container image selection, resource requirements, and deployment strategies.</li>
+</ul>
+<p>By demystifying pod creation in Kubernetes, this series aims to equip both DevOps engineers and developers with the knowledge and understanding to navigate the containerized world with greater confidence and efficiency.</p>
+<h2 id="the-process">The process</h2>
+<p>So you just typed <code>kubectl run myapp --image nginx:latest</code> into your customised terminal with nerdfonts or a dull one with default prompt. Regardless, here&rsquo;s what happens next:</p>
+<h3 id="client-side-kubectl">Client-side (kubectl):</h3>
+<ul>
+<li>User types and executes the command kubectl run myapp &ndash;image nginx:latest.</li>
+<li>kubectl parses the command, identifying arguments like pod name and image.</li>
+<li>kubectl authenticates with the Kubernetes API server using configured credentials.</li>
+<li>kubectl constructs a REST API request targeting the Pods endpoint with the generated Pod manifest.</li>
+</ul>
+<h3 id="api-server">API Server:</h3>
+<ul>
+<li>API server receives the request from kubectl.</li>
+<li>API server authenticates kubectl and authorizes the action based on configured policies.</li>
+<li>API server validates the provided Pod manifest against the Kubernetes Pod schema.</li>
+<li>Upon successful validation, the API server stores the new Pod object in its internal storage.</li>
+</ul>
+<h3 id="worker-node-kubelet">Worker Node (kubelet):</h3>
+<ul>
+<li>Kubelet receives notification from the API server about the newly created Pod.</li>
+<li>Kubelet retrieves the Pod object details from the API server (if not already cached).</li>
+<li>Kubelet determines the image pull policy defined for the Pod (e.g., &ldquo;Always,&rdquo; &ldquo;IfNotPresent&rdquo;).</li>
+<li>If necessary, kubelet pulls the specified image (nginx:latest) from a container registry.</li>
+<li>Kubelet selects a suitable container runtime (e.g., Docker, containerd) based on configuration.</li>
+<li>Kubelet uses the container runtime to create a new container instance based on the image.</li>
+<li>Kubelet configures network namespaces and interfaces for the Pod and container.</li>
+<li>Kubelet sets up resource limits and requests based on the Pod specification.</li>
+<li>Kubelet starts the container within the Pod.</li>
+</ul>
+<h3 id="ongoing-management">Ongoing Management:</h3>
+<ul>
+<li>Kubelet continuously monitors the Pod and container health.</li>
+<li>Kubelet restarts the container if it crashes or fails liveness/readiness probes.</li>
+<li>Kubelet reports Pod and container resource usage metrics to the Metrics API for monitoring.</li>
+</ul>
+<h3 id="optional-service-exposure">Optional Service Exposure:</h3>
+<ul>
+<li>(If <code>kubectl expose</code> is used) Kubelet creates a Service object mapping the Pod&rsquo;s internal IP to a cluster IP or load balancer.</li>
+<li>DNS records might be automatically created for accessing the service by name by kubeDNS or any other custom DNS controller (depending on configuration).</li>
+</ul>
+<h3 id="client-side-verification">Client-side Verification:</h3>
+<p>User can use kubectl get pods to verify the Pod creation and its &ldquo;Running&rdquo; state.
+For further details, kubectl logs can access container logs, and the API server allows querying various cluster resources.</p>
+<h2 id="the-key-learnings">The key learnings</h2>
+<p>Understanding the intricacies of pod creation in Kubernetes goes beyond mere theoretical knowledge. It empowers us to make informed decisions when designing applications and automating deployments. Here are some key ways to leverage this understanding:</p>
+<h3 id="application-design">Application Design:</h3>
+<ul>
+<li><strong>Resource optimization:</strong> By knowing how resources are allocated during pod creation, developers can design their applications with efficient resource utilization in mind. This can involve choosing appropriate container images, optimizing memory and CPU usage, and defining clear resource requests and limits.</li>
+<li><strong>Error handling and resiliency:</strong> Understanding the potential failure points during pod creation (e.g., image pull failures, container startup issues) allows developers to incorporate robust error handling mechanisms and build applications with inherent resiliency.</li>
+</ul>
+<h3 id="automation-and-cicd-pipelines">Automation and CI/CD Pipelines:</h3>
+<ul>
+<li><strong>Scripted deployments:</strong> Knowledge of pod creation steps enables the creation of scripts or tools that automate pod deployment workflows. This can streamline the process, reduce human error, and ensure consistent deployments across environments.</li>
+<li><strong>Integration with CI/CD pipelines:</strong> By integrating pod creation automation with CI/CD pipelines, developers can achieve continuous integration and delivery, allowing for faster and more reliable deployments.</li>
+</ul>
+<h3 id="utilizing-kubernetes-hooks">Utilizing Kubernetes Hooks:</h3>
+<p><em>See: <a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/">Container Lifecycle Hooks</a>, <a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/">Validating Admission Policy</a>, <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/">Dynamic Admission Control</a> for additional reading</em></p>
+<p>Kubernetes API provides various hooks that allow injecting custom logic at specific points during the pod lifecycle. These hooks offer powerful capabilities for:</p>
+<ul>
+<li><strong>Pre-creation and post-creation validation:</strong> Utilize hooks to perform additional checks on pod specifications before and after creation, ensuring they adhere to security or compliance requirements.</li>
+<li><strong>Resource injection:</strong> Inject environment variables, secrets, or configuration files into pods during creation using hooks, simplifying configuration management.</li>
+<li><strong>Integration with external tools:</strong> Leverage hooks to trigger external tools or workflows upon pod creation or deletion, enabling actions like sending notifications or updating monitoring systems.</li>
+</ul>
+<h3 id="additional-learning-policy-enforcement-with-tools-like-open-policy-agent-opa">Additional learning: Policy Enforcement with Tools like Open Policy Agent (OPA):</h3>
+<p><a href="https://www.openpolicyagent.org/docs/latest/">OPA</a> is a popular policy engine that can integrate with Kubernetes to enforce policies during pod creation. Its uses the different Kubernetes hooks to validate configuration and enforce standards.
+By leveraging hooks and OPA, you can implement:</p>
+<ul>
+<li><strong>Security policies:</strong> Define rules to restrict pod creation based on image sources, resource usage limits, or other security criteria.</li>
+<li><strong>Compliance checks:</strong> Enforce compliance with organizational policies or regulations by evaluating pod specifications against predefined rules.</li>
+<li><strong>Resource quotas:</strong> Set limits on the number of pods or resources that can be created within a namespace, ensuring efficient resource utilization and preventing resource exhaustion.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Unveiling the intricate dance of pod creation in Kubernetes empowers both DevOps engineers and developers. This knowledge equips you to design efficient applications, automate deployments with confidence, and leverage powerful tools like hooks and OPA for enhanced security and control. As you delve deeper into the world of containerized applications, remember that understanding the foundations is key to building and managing robust and scalable deployments in the ever-evolving landscape of Kubernetes.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Demystifying DevOps: Why it&#39;s Not Just Fancy Plumbing</title>
+            <link>https://devopsloop-ss.github.io/posts/2024/02/demystifying-devops-why-its-not-just-fancy-plumbing/</link>
+            <pubDate>Sat, 10 Feb 2024 23:58:10 +0530</pubDate>
+            
+            <guid>https://devopsloop-ss.github.io/posts/2024/02/demystifying-devops-why-its-not-just-fancy-plumbing/</guid>
+            <description>This blogpost is meant to initiate a conversation about DevOps Engineers and the value they bring with their automations
+Early in my career, a senior developer challenged me with a question: &amp;ldquo;Isn&amp;rsquo;t DevOps just glorified support?&amp;rdquo;
+As a recent graduate facing a sea of unfamiliar acronyms and complex automation processes, it felt like a jab. I wondered why building layers upon layers of automation seemed so important, and what real impact it had.</description>
+            <content type="html"><![CDATA[<p><em>This blogpost is meant to initiate a conversation about DevOps Engineers and the value they bring with their automations</em></p>
+<p>Early in my career, a senior developer challenged me with a question: &ldquo;Isn&rsquo;t DevOps just glorified support?&rdquo;</p>
+<p>As a recent graduate facing a sea of unfamiliar acronyms and complex automation processes, it felt like a jab.
+I wondered why building layers upon layers of automation seemed so important, and what real impact it had.</p>
+<p>Instead of accepting his statement at face value or getting defensive, I decided to take a different approach.
+Afterall this wasn&rsquo;t just a random job I fell into; it was a conscious choice based on what I like to do and what skills
+I had. But before I could convince anyone else about the value of my work, I needed answers for myself.</p>
+<p>So began my personal journey to understand not just the mechanics of DevOps, but the deeper purpose that went beyond lines of code and scripts.</p>
+<p>Fast forward a few years, and I have a much clearer perspective than that bewildered graduate. In this post, I&rsquo;ll share what I&rsquo;ve learned,
+not just to debunk the &ldquo;glorified support&rdquo; myth, but to reveal the transformative power of DevOps.</p>
+<h2 id="a-subjective-definition">A Subjective definition</h2>
+<p>Enough has been said and written about DevOps by the experts over the years, and yet it is not possible to bind DevOps into
+a static definition. The reason why DevOps is so hard to define, boils down to &ldquo;people are different&rdquo;. People make teams, teams
+constitute an organisation and decide what tools they would use, what procedures they may follow, what standards they must hold
+etc. The variance in what DevOps means for different organisations hence makes binding DevOps into a genral definition very difficult.</p>
+<p>Its not that people have not tried. Just look at how Google talks about their way of DevOps that they have evangelised as Site Reliability
+Engineering. Its how a certain organisation &ldquo;Google&rdquo; happens to run their business and systems. They define their standards in objectives
+(SLOs) and they decide their own metrics (SLIs) to enforce adherence to their standards. Now, many other organisations have emulated or tried
+to emulate this approach to DevOps and ended up with their own versions of SRE that can be at times completely different from what Google or any
+other organisation for that matter, may see their SRE as.</p>
+<p>Then there is Platform Engineering, that abstracts away the infrastructre and lets people do what they are best at doing. So Devs can focus
+on building their applications, testing it and deploying it in a reliable way, while Platform Engineers making sure that the systems are resilient
+enough to handle the volume of changes required. But even the way that Platform engineering is implemented at different organisations is quite distinct.</p>
+<p>In esssence you may find that even seemingly the most well defined and published implementations of DevOps, may have so many different versions.
+Its safe to say that even trying to define DevOps in terms of &ldquo;what it containes&rdquo; is futile. So instead, let me try to define DevOps in terms
+of its impact on an organisation. Essentialy, I&rsquo;d define DevOps as an organisational firmware that does the following things:</p>
+<ul>
+<li>Improves the flow of work/changes by standardising and automating processes, improving the visibility of factors affecting the work and promoting
+collaboration and mutual understanding by sharing knowledge and responsibilities.</li>
+<li>Identifies and collects key metrics and feedback that is critical to business, and integrates it into the development process.</li>
+<li>Embraces the chaos of change by expecting failures and continuosly learning from failures.</li>
+</ul>
+<p>The above definition is a tradeoff between an exact definition, and a definition covering most if not all aspects of DevOps, in the favour of the latter.
+It is influcend by popular DevOps literature like The Pheonix Project, SRE Handbook and my own experiences of working with different teams and orgs.</p>
+<h2 id="so-what-does-it-means-to-be-a-devops-engineer">So, what does it means to be a DevOps Engineer?</h2>
+<p>Since I defined DevOps in terms of its impact and outcomes, I&rsquo;d say a DevOps Engineer is a professional who champions the changes that are needed
+to bring these outcomes. In bigger teams and orgs, this might becomcome blurred, since the responsibilities for implementing DevOps are greately
+distributed between different stakeholders like scrum masters, product owners, project managers, leads etc. This is actually the evidence that DevOps
+is quite mature now and needs less evangelising and more implementation within most orgs. Even without knowing what is the impact of your work as a
+DevOps Engineer, you might be able to contribute towards the DevOps goals of your team and org.</p>
+<p>However, only by knowing what DevOps stands for, can one truly see the impact and see if there is deviation and take corrective measures. You maybe
+writing and maintaining deployment pipelines, IaC, automation scipts or setting up monitoring, provisioning cloud resources using n umber of custom,
+open source tools, but in the end, how it impacts the business is what derrives the value of your work.</p>
+<p>I hope I was able to give a new perspective to how you see DevOps. Feel free to reach out if you want to talk more about this or anything else in tech.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
