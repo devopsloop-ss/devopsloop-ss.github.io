@@ -2,46 +2,46 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on This is DevOpsloop</title>
-    <link>https://devopsloop.in/tags/</link>
+    <link>https://devopsloop-ss.github.io/tags/</link>
     <description>Recent content in Tags on This is DevOpsloop</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 18 Feb 2024 18:04:12 +0530</lastBuildDate>
-    <atom:link href="https://devopsloop.in/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Feb 2024 21:00:33 +0530</lastBuildDate>
+    <atom:link href="https://devopsloop-ss.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>devops</title>
-      <link>https://devopsloop.in/tags/devops/</link>
+      <link>https://devopsloop-ss.github.io/tags/devops/</link>
       <pubDate>Sun, 18 Feb 2024 17:10:53 +0530</pubDate>
-      <guid>https://devopsloop.in/tags/devops/</guid>
+      <guid>https://devopsloop-ss.github.io/tags/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>kubernetes</title>
-      <link>https://devopsloop.in/tags/kubernetes/</link>
+      <link>https://devopsloop-ss.github.io/tags/kubernetes/</link>
       <pubDate>Sun, 18 Feb 2024 17:10:53 +0530</pubDate>
-      <guid>https://devopsloop.in/tags/kubernetes/</guid>
+      <guid>https://devopsloop-ss.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
     <item>
       <title>what-happens-when</title>
-      <link>https://devopsloop.in/tags/what-happens-when/</link>
+      <link>https://devopsloop-ss.github.io/tags/what-happens-when/</link>
       <pubDate>Sun, 18 Feb 2024 17:10:53 +0530</pubDate>
-      <guid>https://devopsloop.in/tags/what-happens-when/</guid>
+      <guid>https://devopsloop-ss.github.io/tags/what-happens-when/</guid>
       <description></description>
     </item>
     <item>
       <title>value</title>
-      <link>https://devopsloop.in/tags/value/</link>
+      <link>https://devopsloop-ss.github.io/tags/value/</link>
       <pubDate>Sat, 10 Feb 2024 23:58:10 +0530</pubDate>
-      <guid>https://devopsloop.in/tags/value/</guid>
+      <guid>https://devopsloop-ss.github.io/tags/value/</guid>
       <description></description>
     </item>
     <item>
       <title>why</title>
-      <link>https://devopsloop.in/tags/why/</link>
+      <link>https://devopsloop-ss.github.io/tags/why/</link>
       <pubDate>Sat, 10 Feb 2024 23:58:10 +0530</pubDate>
-      <guid>https://devopsloop.in/tags/why/</guid>
+      <guid>https://devopsloop-ss.github.io/tags/why/</guid>
       <description></description>
     </item>
   </channel>
