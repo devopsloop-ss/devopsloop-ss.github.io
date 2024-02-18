@@ -19,6 +19,7 @@
 Have you ever wondered what happens behind the scenes when you create a pod in Kubernetes? This blog post aims to unveil the intricate dance of events that unfolds from the moment you issue a command like kubectl run to the point where your pod is up and running.
 We&amp;rsquo;ll break down the process into bite-sized steps, exploring various elements involved, including:</description>
             <content type="html"><![CDATA[<p><em>This blogpost takes a deepdive into the series of events that transpire, when a Kubernetes pod is created</em></p>
+<p><img src="/post-images/kubernetes-pods.jpg" alt="image"></p>
 <p>Have you ever wondered what happens behind the scenes when you create a pod in Kubernetes?
 This blog post aims to unveil the intricate dance of events that unfolds from the moment
 you issue a command like kubectl run to the point where your pod is up and running.</p>
@@ -130,6 +131,7 @@ By leveraging hooks and OPA, you can implement:</p>
 Early in my career, a senior developer challenged me with a question: &amp;ldquo;Isn&amp;rsquo;t DevOps just glorified support?&amp;rdquo;
 As a recent graduate facing a sea of unfamiliar acronyms and complex automation processes, it felt like a jab. I wondered why building layers upon layers of automation seemed so important, and what real impact it had.</description>
             <content type="html"><![CDATA[<p><em>This blogpost is meant to initiate a conversation about DevOps Engineers and the value they bring with their automations</em></p>
+<p><img src="/post-images/neko-devops.jpg" alt="image"></p>
 <p>Early in my career, a senior developer challenged me with a question: &ldquo;Isn&rsquo;t DevOps just glorified support?&rdquo;</p>
 <p>As a recent graduate facing a sea of unfamiliar acronyms and complex automation processes, it felt like a jab.
 I wondered why building layers upon layers of automation seemed so important, and what real impact it had.</p>
